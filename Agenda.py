@@ -4,6 +4,7 @@ import Tarefas
 class Agenda:
 
     
+    
     def __init__(self, nome):
         
         arqAgenda = open(nome+'.csv', mode='+a')
