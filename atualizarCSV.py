@@ -1,8 +1,10 @@
 import os
 
 class atualizarCSV:
+    __cabecalho = 'titulo;prazo;categoria;concluida\n'
 
     def __init__(self) -> None:
+        
         pass
 
 
@@ -12,7 +14,7 @@ class atualizarCSV:
         arquivo = open(nome+'.csv', mode='a')
 
         if os.stat(arquivo.name).st_size == 0:            
-            arquivo.write('titulo;prazo;categoria;concluida\n')
+            arquivo.write(atualizarCSV.__cabecalho)
             
         else:
             raise FileExistsError('Já existe arquivo com esse nome')
@@ -31,12 +33,26 @@ class atualizarCSV:
 
 
     @staticmethod
-    def apagarLinha(titulo):
-        pass
+    def atualizarLinhasArquivo(titulo, tarefas):
+        arquivo = open(titulo+'.csv','w')
+
+        arquivo.write(atualizarCSV.__cabecalho)
+        for linha in tarefas.keys():
+            txt = linha + ';' + tarefas[linha]['prazo'] + ';' + tarefas[linha]['categoria'] + ';' + tarefas[linha]['concluida'] + '\n'
+            arquivo.write(txt)
+    
+    @staticmethod
+    def apagarLinhasArquivo(titulo):
+        arquivo = open(titulo+'.csv','w')
+        arquivo.write(atualizarCSV.__cabecalho)        
 
     @staticmethod
     def inserirLinha(nome, texto):
         arquivo = open(nome+'.csv', mode='a' )
         arquivo.write(texto+'\n')
+
+    @staticmethod
+    def apagarArquivo(nome):
+        os.remove(nome+'.csv')        
 
 
