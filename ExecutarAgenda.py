@@ -30,6 +30,7 @@ Digite:
 - 2 para inserir tarefa
 - 3 para excluir 
 - 4 imprimir a lista inteira
+- 5 abrir agenda
 
 ou qualquer outra coisa para finalizar: ''')
     
@@ -89,6 +90,12 @@ ou qualquer outra coisa para finalizar: ''')
         except:
             
             print('Nenhuma agenda aberta')
+    
+    elif opcao == '5':  
+        nomeAgenda = input('Digite o nome da agenda a ser aberta: ')
+        agenda = Agenda()
+        agenda.abrirAgenda(nomeAgenda)
+
             
         
     else:        

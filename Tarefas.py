@@ -1,10 +1,10 @@
 class Tarefas:
 
-    def __init__(self, titulo, prazo, categoria=0):
+    def __init__(self, titulo, prazo, categoria=0, concluida=0):
         self.titulo = titulo
         self.prazo = prazo
         self.categoria = categoria
-        self.concluida = 0
+        self.concluida = concluida
 
     def update_status(self, status=None):
         if status != None:
