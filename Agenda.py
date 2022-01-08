@@ -15,15 +15,10 @@ class Agenda:
                     
             except Exception as e:
                 print('Não foi possível criar a agenda. ')
-                print(e)
-        
+                print(e)       
 
         self.nome = nome
         self.tarefasAgendadas = {}
-
-        
-        
-        
 
 
     def abrirAgenda(self,nome):
@@ -43,13 +38,26 @@ class Agenda:
 
 
     def removerTarefa(self,tarefa):
-        pass
+        resExcluir = self.tarefasAgendadas.pop(tarefa, False)
+        
+        if resExcluir:
+            print(f'''
++++++++++ Tarefa {tarefa} excluída: {resExcluir}''')
+        else:
+            print('''
+-------- Tarefa não encontrada --------
+            ''')
     
-    def visualizarTarefa(self,dia=None):
-        if dia == None:
-            print(self.tarefasAgendadas)
-
-    def limpar():
-        pass
+    def visualizarTarefa(self,consulta=None):
+        resultado_consulta = []
+        for i in self.tarefasAgendadas.keys():
+            if consulta in self.tarefasAgendadas[i].values():
+                print(f'{i} : {self.tarefasAgendadas[i]}')
+                resultado_consulta.append(i)
+        return resultado_consulta
+            
+    
+    def limpar(self):
+        self.tarefasAgendadas.clear()
 
     
