@@ -61,12 +61,6 @@ ou qualquer outra coisa para finalizar: ''')
     elif opcao == '3':
         tituloTarefa = input('Digite o nome da tarefa a ser excluda: ')
         agenda.removerTarefa(tituloTarefa)
-
-        print('''
-        
-******** Tarefa '''+ tituloTarefa + ''' foi removida com sucesso ''' + agenda.tarefasAgendadas + ''' ********        
-                
-        ''')
     
     elif opcao == '4':  
         try:
@@ -90,7 +84,7 @@ ou qualquer outra coisa para finalizar: ''')
             ''')
     
     elif opcao == '6':
-        categoria = int(input('Digite a categoria para consulta: '))
+        categoria = input('Digite a categoria para consulta: ')
         
         resConsulta = agenda.visualizarTarefa(categoria)
         
