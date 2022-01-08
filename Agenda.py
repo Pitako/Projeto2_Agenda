@@ -1,15 +1,14 @@
 import os
-import Tarefas
+from Tarefas import Tarefas
 
 class Agenda:
 
-    
     def __init__(self, nome):
         
         arqAgenda = open(nome+'.csv', mode='+a')
 
         if os.stat(arqAgenda.name).st_size == 0:            
-            arqAgenda.write('titulo;dataRealizacao;categoria;concluida')
+            arqAgenda.write('titulo;prazo;categoria;concluida')
         else:
             raise FileExistsError('Já existe agenda com esse nome')
         
@@ -23,16 +22,29 @@ class Agenda:
         pass        	
 
     def adicionarTarefa(self,tarefa):
-        self.tarefasAgendadas[tarefa.titulo] = {'dataRealizacao':tarefa.dataRealizacao, 'categoria':tarefa.categoria , 'concluida':tarefa.concluida}
+        self.tarefasAgendadas[tarefa.titulo] = {'prazo':tarefa.prazo, 'categoria':tarefa.categoria , 'concluida':tarefa.concluida}
 
     def removerTarefa(self,tarefa):
-        pass
+        resExcluir = self.tarefasAgendadas.pop(tarefa, False)
+        
+        if resExcluir:
+            print(f'''
++++++++++ Tarefa {tarefa} excluída: {resExcluir}''')
+        else:
+            print('''
+-------- Tarefa não encontrada --------
+            ''')
     
-    def visualizarTarefa(self,dia=None):
-        if dia == None:
-            print(self.tarefasAgendadas)
-
-    def limpar():
-        pass
+    def visualizarTarefa(self,consulta=None):
+        resultado_consulta = []
+        for i in self.tarefasAgendadas.keys():
+            if consulta in self.tarefasAgendadas[i].values():
+                print(f'{i} : {self.tarefasAgendadas[i]}')
+                resultado_consulta.append(i)
+        return resultado_consulta
+            
+    
+    def limpar(self):
+        self.tarefasAgendadas.clear()
 
     
