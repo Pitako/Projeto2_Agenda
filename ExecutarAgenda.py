@@ -25,13 +25,15 @@ while opcao != '0':
     
     opcao = input('''
 Digite:
-- 1 para criar agenda
-- 2 para inserir tarefa
-- 3 para excluir tarefa
-- 4 imprimir uma agenda inteira
-- 5 buscar tarefas de uma data específica
-- 6 buscar tarefas de uma categoria específica
-- 7 apaga todas as tarefas da agenda e mantém a agenda
+- 1  para criar agenda
+- 2  abrir agenda
+- 3  para inserir tarefa
+- 4  buscar tarefas de uma data específica
+- 5  buscar tarefas de uma categoria específica
+- 6  imprimir uma agenda inteira
+- 7  para excluir tarefa
+- 8  apaga todas as tarefas da agenda e mantém a agenda
+- 9  apaga a agenda
 
 ou qualquer outra coisa para finalizar: ''')
     
@@ -40,7 +42,12 @@ ou qualquer outra coisa para finalizar: ''')
         nomeAgenda = input('Digite o nome da agenda: ')
         agenda = Agenda(nomeAgenda)
 
-    elif opcao == '2':
+    elif opcao == '2':  
+        nomeAgenda = input('Digite o nome da agenda a ser aberta: ')
+        agenda = Agenda()
+        agenda.abrirAgenda(nomeAgenda)
+
+    elif opcao == '3':
         entrada = {}
         
         tituloTarefa   = input('Digite o nome da tarefa: ')
@@ -56,21 +63,8 @@ ou qualquer outra coisa para finalizar: ''')
 ******** Tarefa '''+ tituloTarefa + ''' cadastrado com sucesso ********        
                 
         ''')
-        
-        
-    elif opcao == '3':
-        tituloTarefa = input('Digite o nome da tarefa a ser excluda: ')
-        agenda.removerTarefa(tituloTarefa)
-    
-    elif opcao == '4':  
-        try:
-            print(agenda.tarefasAgendadas)
-        except:
-            print('Nenhuma agenda aberta')
-            
-        
 
-    elif opcao == '5':
+    elif opcao == '4':
         prazo = input('Digite a data final da tarefa para consulta: ')
         
         resConsulta = agenda.visualizarTarefa(prazo)
@@ -83,7 +77,7 @@ ou qualquer outra coisa para finalizar: ''')
 -------- Não há tarefas para esse dia --------
             ''')
     
-    elif opcao == '6':
+    elif opcao == '5':
         categoria = input('Digite a categoria para consulta: ')
         
         resConsulta = agenda.visualizarTarefa(categoria)
@@ -96,12 +90,35 @@ ou qualquer outra coisa para finalizar: ''')
 -------- Não há tarefas para dessa categoria --------
             ''')
     
+    elif opcao == '6':  
+        try:
+            print(agenda.tarefasAgendadas)
+        except:
+            print('Nenhuma agenda aberta')
+        
     elif opcao == '7':
+        tituloTarefa = input('Digite o nome da tarefa a ser excluda: ')
+        agenda.removerTarefa(tituloTarefa)
+        ## alterar arquivo CSV
+    
+    
+    elif opcao == '8':
         agenda.limpar()
+        ## alterar arquivo CSV
 
         print('''
         
 ******** Agenda foi esvaziada com sucesso ********        
+                
+        ''')
+
+    elif opcao == '9':
+        del agenda
+        ## alterar arquivo CSV
+
+        print('''
+        
+******** Agenda foi apagada com sucesso ********        
                 
         ''')
 
