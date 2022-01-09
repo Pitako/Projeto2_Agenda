@@ -1,5 +1,6 @@
 from Agenda import Agenda
 from Tarefas import Tarefas
+from atualizarCSV import atualizarCSV
 
 
 #exibe opções
@@ -30,10 +31,12 @@ Digite:
 - 3  para inserir tarefa
 - 4  buscar tarefas de uma data específica
 - 5  buscar tarefas de uma categoria específica
-- 6  imprimir uma agenda inteira
-- 7  para excluir tarefa
-- 8  apaga todas as tarefas da agenda e mantém a agenda
-- 9  apaga a agenda
+- 6  alterar status de uma tarefa
+- 7  alterar categoria de uma tarefa
+- 8  imprimir uma agenda inteira 
+- 9  para excluir tarefa
+- 10 apaga todas as tarefas da agenda e mantém a agenda
+- 11 apaga a agenda
 
 ou qualquer outra coisa para finalizar: ''')
     
@@ -48,14 +51,15 @@ ou qualquer outra coisa para finalizar: ''')
         agenda.abrirAgenda(nomeAgenda)
 
     elif opcao == '3':
+        print(f'********* Agenda {agenda} *********')
         entrada = {}
         
         tituloTarefa   = input('Digite o nome da tarefa: ')
         prazo          = input('Digite a data limite: ')
         categoria      = input('Digite a categoria: ')       
-        concluida      = 0
+        status         = 'Pendente'
                 
-        tarefa = Tarefas(tituloTarefa, prazo, categoria)
+        tarefa = Tarefas(tituloTarefa, prazo, categoria, status)
         agenda.adicionarTarefa(tarefa)
         
         print('''
@@ -63,8 +67,10 @@ ou qualquer outra coisa para finalizar: ''')
 ******** Tarefa '''+ tituloTarefa + ''' cadastrado com sucesso ********        
                 
         ''')
+        atualizarCSV.inserirLinha(agenda, tarefa)
 
     elif opcao == '4':
+        print(f'********* Agenda {agenda} *********')
         prazo = input('Digite a data final da tarefa para consulta: ')
         
         resConsulta = agenda.visualizarTarefa(prazo)
@@ -78,6 +84,7 @@ ou qualquer outra coisa para finalizar: ''')
             ''')
     
     elif opcao == '5':
+        print(f'********* Agenda {agenda} *********')
         categoria = input('Digite a categoria para consulta: ')
         
         resConsulta = agenda.visualizarTarefa(categoria)
@@ -89,32 +96,59 @@ ou qualquer outra coisa para finalizar: ''')
             print('''
 -------- Não há tarefas para dessa categoria --------
             ''')
-    
+
     elif opcao == '6':  
+        print(f'********* Agenda {agenda} *********')
         try:
+            nome = input('Qual tarefa você deseja alterar o status?')   
+            agenda.update_status(nome)
+        except:
+            print('''
+-------- Não há tarefas para com esse nome --------
+            ''')
+        
+        #atualizarCSV.carregarLinhasArquivo(agenda)
+
+    elif opcao == '7':  
+        print(f'********* Agenda {agenda} *********')
+        nome = input('Qual tarefa você deseja alterar a categoria?')  
+        categoria = input('Qual será a nova categoria? ')     
+        try: 
+            agenda.alterarCategoria(nome, categoria)
+        except:
+            print('''
+-------- Não há tarefas para com esse nome --------
+            ''')
+
+    elif opcao == '8':  
+        try:
+            print(f'********* Agenda {agenda} *********')
             print(agenda.tarefasAgendadas)
         except:
             print('Nenhuma agenda aberta')
         
-    elif opcao == '7':
+    elif opcao == '9':
+        print(f'********* Agenda {agenda} *********')
         tituloTarefa = input('Digite o nome da tarefa a ser excluda: ')
         agenda.removerTarefa(tituloTarefa)
-        ## alterar arquivo CSV
+        atualizarCSV
     
     
-    elif opcao == '8':
+    elif opcao == '10':
+        print(f'********* Agenda {agenda} *********')
         agenda.limpar()
-        ## alterar arquivo CSV
+        atualizarCSV
 
-        print('''
+        print(f'''
         
-******** Agenda foi esvaziada com sucesso ********        
+******** Agenda {agenda} foi esvaziada com sucesso ********        
                 
         ''')
 
-    elif opcao == '9':
+    elif opcao == '11':
+        print(f'********* Agenda {agenda} *********')
         del agenda
-        ## alterar arquivo CSV
+        atualizarCSV
 
         print('''
         
