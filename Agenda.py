@@ -6,7 +6,6 @@ from atualizarCSV import atualizarCSV
 class Agenda:
 
     
-    
     def __init__(self, nome=None):        
 
         if nome != None:
@@ -33,10 +32,18 @@ class Agenda:
         
 
     def adicionarTarefa(self,tarefa, abertura=False):
-        self.tarefasAgendadas[tarefa.titulo] = {'prazo':tarefa.prazo, 'categoria':tarefa.categoria , 'concluida':tarefa.concluida}
+        self.tarefasAgendadas[tarefa.titulo] = {'prazo':tarefa.prazo, 'categoria':tarefa.categoria , 'status':tarefa.status}
         if abertura == False:
             atualizarCSV.inserirLinha(self.nome, str(tarefa))
 
+    def update_status(self, nome):
+        if self.tarefasAgendadas[nome]['status'] == 'Pendente':
+            self.tarefasAgendadas[nome]['status'] = 'Concluída'
+        else:
+            self.tarefasAgendadas[nome]['status'] = 'Pendente'
+
+    def alterarCategoria(self, nome, categoria):
+        self.tarefasAgendadas[nome]['categoria'] = categoria
 
     def removerTarefa(self,tarefa):
         resExcluir = self.tarefasAgendadas.pop(tarefa)
@@ -67,5 +74,8 @@ class Agenda:
     def excluirAgenda(self):
         atualizarCSV.apagarArquivo(self.nome)
 
+
+    def __repr__(self) -> str:
+        return f'{self.nome}'
 
     
