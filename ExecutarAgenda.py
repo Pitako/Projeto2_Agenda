@@ -167,7 +167,7 @@ ou qualquer outra coisa para finalizar: ''')
             pressioneEnter()
         except:
             print('''
--------- Não há tarefas para com esse nome --------
+-------- Não há tarefas para esse nome --------
             ''')
             pressioneEnter()
 
