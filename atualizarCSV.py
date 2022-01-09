@@ -30,15 +30,13 @@ class atualizarCSV:
 
         return linhas
 
-
-
     @staticmethod
     def atualizarLinhasArquivo(titulo, tarefas):
         arquivo = open(titulo+'.csv','w')
 
         arquivo.write(atualizarCSV.__cabecalho)
         for linha in tarefas.keys():
-            txt = linha + ';' + tarefas[linha]['prazo'] + ';' + tarefas[linha]['categoria'] + ';' + tarefas[linha]['concluida'] + '\n'
+            txt = linha + ';' + tarefas[linha]['prazo'] + ';' + tarefas[linha]['categoria'] + ';' + tarefas[linha]['status'] + '\n'
             arquivo.write(txt)
     
     @staticmethod

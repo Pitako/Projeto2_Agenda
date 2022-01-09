@@ -41,9 +41,11 @@ class Agenda:
             self.tarefasAgendadas[nome]['status'] = 'Concluída'
         else:
             self.tarefasAgendadas[nome]['status'] = 'Pendente'
+        atualizarCSV.atualizarLinhasArquivo(self.nome, self.tarefasAgendadas)
 
     def alterarCategoria(self, nome, categoria):
         self.tarefasAgendadas[nome]['categoria'] = categoria
+        atualizarCSV.atualizarLinhasArquivo(self.nome, self.tarefasAgendadas)
 
     def removerTarefa(self,tarefa):
         resExcluir = self.tarefasAgendadas.pop(tarefa)
@@ -57,6 +59,7 @@ class Agenda:
             print('''
 -------- Tarefa não encontrada --------
             ''')
+        
     
     def visualizarTarefa(self,consulta=None):
         resultado_consulta = []
