@@ -56,6 +56,7 @@ ou qualquer outra coisa para finalizar: ''')
             pressioneEnter()
         except:
             print('Falha ao criar agenda')
+            pressioneEnter()
 
     elif opcao == '2':  
         nomeAgenda = input('Digite o nome da agenda a ser aberta: ')        
@@ -69,7 +70,8 @@ ou qualquer outra coisa para finalizar: ''')
             ''')
             pressioneEnter()
         except:
-            print('Falha ao abrir agenda')
+            print('Agenda não encontrada!!!')
+            pressioneEnter()
 
     elif opcao == '3':
         infoAgenda()
@@ -126,7 +128,7 @@ ou qualquer outra coisa para finalizar: ''')
                 pressioneEnter()
             else:
                 print('''
-    -------- Não há tarefas para dessa categoria --------
+    -------- Não há tarefas dessa categoria --------
                 ''')
                 pressioneEnter()
         except:
@@ -145,7 +147,7 @@ ou qualquer outra coisa para finalizar: ''')
             pressioneEnter()
         except:
             print('''
--------- Não há tarefas para com esse nome --------
+-------- Não há tarefas com esse nome --------
             ''')
             pressioneEnter()
         
@@ -190,7 +192,12 @@ ou qualquer outra coisa para finalizar: ''')
             pressioneEnter()
             
         except:
-            erroAgenda()
+            print('''
+        
+******** A tarefa não existe ********        
+                
+        ''')
+            pressioneEnter()  
     
     
     elif opcao == '10':
