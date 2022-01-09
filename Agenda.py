@@ -27,13 +27,14 @@ class Agenda:
         linhas = atualizarCSV.carregarLinhasArquivo(self.nome)
         for registro in linhas:
             tarefa = registro.split(';')
-            self.adicionarTarefa(Tarefas(tarefa[0],tarefa[1],tarefa[2],tarefa[3]))
+            self.adicionarTarefa(Tarefas(tarefa[0],tarefa[1],tarefa[2],tarefa[3]),True)
 
         
 
-    def adicionarTarefa(self,tarefa):
+    def adicionarTarefa(self,tarefa, abertura=False):
         self.tarefasAgendadas[tarefa.titulo] = {'prazo':tarefa.prazo, 'categoria':tarefa.categoria , 'status':tarefa.status}
-        atualizarCSV.inserirLinha(self.nome, str(tarefa))
+        if abertura == False:
+            atualizarCSV.inserirLinha(self.nome, str(tarefa))
 
     def update_status(self, nome):
         if self.tarefasAgendadas[nome]['status'] == 'Pendente':
@@ -45,11 +46,13 @@ class Agenda:
         self.tarefasAgendadas[nome]['categoria'] = categoria
 
     def removerTarefa(self,tarefa):
-        resExcluir = self.tarefasAgendadas.pop(tarefa, False)
+        resExcluir = self.tarefasAgendadas.pop(tarefa)
         
         if resExcluir:
+            atualizarCSV.atualizarLinhasArquivo(self.nome, self.tarefasAgendadas)
             print(f'''
 +++++++++ Tarefa {tarefa} excluída: {resExcluir}''')
+
         else:
             print('''
 -------- Tarefa não encontrada --------
@@ -64,8 +67,13 @@ class Agenda:
         return resultado_consulta
             
     
-    def limpar(self):
+    def limparTarefasAgenda(self):
         self.tarefasAgendadas.clear()
+        atualizarCSV.apagarLinhasArquivo(self.nome)
+
+    def excluirAgenda(self):
+        atualizarCSV.apagarArquivo(self.nome)
+
 
     def __repr__(self) -> str:
         return f'{self.nome}'
